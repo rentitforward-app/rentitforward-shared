@@ -1,0 +1,23 @@
+# Node
+node_modules/
+dist/
+.env*
+*.log
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build & output
+build/
+.cache/
+*.tsbuildinfo
+
+# Cursor
+.cursorignore
+
+# Compiled
+*.js
+*.d.ts

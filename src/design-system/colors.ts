@@ -166,4 +166,10 @@ export const tailwindColors = {
     800: '#1f2937',
     900: '#111827',
   }
+}
+
+// Export colors object for use in Tailwind config
+export const colors = {
+  primary: tailwindColors.primary,
+  secondary: tailwindColors.secondary,
 } 

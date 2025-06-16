@@ -5,6 +5,7 @@ export * from './types/booking';
 
 // Utilities
 export * from './utils/formatting';
+export * from './utils/stripe';
 
 // Constants
 export * from './constants';
