@@ -1,5 +1,5 @@
-// Component System - Reusable component styles and variants
-// Similar to FlutterFlow's theme widgets
+// Component System - Rental Platform Design System v1.0
+// Reusable component styles and variants for sharing economy marketplace
 
 import { ColorPalette } from './colors'
 import { TextStyle } from './typography'
@@ -35,6 +35,8 @@ export interface ButtonVariants {
 }
 
 export interface CardVariants {
+  product: ComponentVariant
+  feature: ComponentVariant
   default: ComponentVariant
   elevated: ComponentVariant
   outlined: ComponentVariant
@@ -50,6 +52,14 @@ export interface ComponentTheme {
   buttons: ButtonVariants
   cards: CardVariants
   inputs: InputVariants
+  navigation: {
+    header: ComponentStyle
+  }
+  icons: {
+    size: number
+    color: string
+    style: string
+  }
   loadingIndicator: {
     color: string
     size: number
@@ -57,65 +67,70 @@ export interface ComponentTheme {
   }
 }
 
-// Button component styles
+// Button component styles - Updated for pill shape
 export const createButtonStyles = (colors: ColorPalette): ButtonVariants => ({
   primary: {
     default: {
-      backgroundColor: colors.primary,
-      borderColor: colors.primary,
+      backgroundColor: colors.primary.main, // '#44D62C'
+      borderColor: colors.primary.main,
       borderWidth: 1,
-      borderRadius: 8,
-      padding: { x: 24, y: 12 },
+      borderRadius: 24, // Pill shape as per spec
+      padding: { x: 24, y: 12 }, // 12px 24px as per spec
       textStyle: {
-        color: colors.white,
+        color: colors.text.inverse, // White text
         fontWeight: 600,
         fontSize: 16,
       },
-      shadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+      shadow: '0 2px 4px rgba(0, 0, 0, 0.1)', // Subtle drop shadow
     },
     hover: {
-      backgroundColor: colors.accent1,
-      borderColor: colors.accent1,
+      backgroundColor: '#37B02A', // Slightly darker green
+      borderColor: '#37B02A',
       shadow: '0 4px 8px rgba(0, 0, 0, 0.15)',
     },
     active: {
-      backgroundColor: colors.tertiary,
-      borderColor: colors.tertiary,
+      backgroundColor: '#2A8A21',
+      borderColor: '#2A8A21',
     },
     disabled: {
-      backgroundColor: colors.gray300,
-      borderColor: colors.gray300,
+      backgroundColor: colors.neutral.mediumGray,
+      borderColor: colors.neutral.mediumGray,
       opacity: 0.6,
     },
     focus: {
-      borderColor: colors.primary,
-      shadow: `0 0 0 3px ${colors.primary}33`,
+      borderColor: colors.primary.main,
+      shadow: `0 0 0 3px rgba(68, 214, 44, 0.2)`,
     }
   },
   
   secondary: {
     default: {
-      backgroundColor: colors.gray100,
-      borderColor: colors.gray300,
+      backgroundColor: 'transparent',
+      borderColor: colors.primary.main, // Primary green border
       borderWidth: 1,
-      borderRadius: 8,
+      borderRadius: 24, // Pill shape
       padding: { x: 24, y: 12 },
       textStyle: {
-        color: colors.primaryText,
+        color: colors.primary.main, // Primary green text
         fontWeight: 600,
         fontSize: 16,
       },
-      shadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
     },
     hover: {
-      backgroundColor: colors.gray200,
-      borderColor: colors.gray400,
+      backgroundColor: colors.secondary.light, // Light green background on hover
+      borderColor: '#37B02A',
+      textStyle: {
+        color: '#37B02A',
+      }
     },
     active: {
-      backgroundColor: colors.gray300,
+      backgroundColor: colors.secondary.medium,
     },
     disabled: {
-      backgroundColor: colors.gray100,
+      borderColor: colors.neutral.mediumGray,
+      textStyle: {
+        color: colors.text.tertiary,
+      },
       opacity: 0.6,
     }
   },
@@ -125,19 +140,22 @@ export const createButtonStyles = (colors: ColorPalette): ButtonVariants => ({
       backgroundColor: 'transparent',
       borderColor: 'transparent',
       borderWidth: 0,
-      borderRadius: 8,
+      borderRadius: 24,
       padding: { x: 16, y: 8 },
       textStyle: {
-        color: colors.primary,
-        fontWeight: 600,
+        color: colors.text.brand, // Brand green for links
+        fontWeight: 500,
         fontSize: 16,
       },
     },
     hover: {
-      backgroundColor: `${colors.primary}10`,
+      backgroundColor: colors.secondary.light,
+      textStyle: {
+        textDecoration: 'underline',
+      }
     },
     active: {
-      backgroundColor: `${colors.primary}20`,
+      backgroundColor: colors.secondary.medium,
     },
     disabled: {
       opacity: 0.6,
@@ -147,42 +165,73 @@ export const createButtonStyles = (colors: ColorPalette): ButtonVariants => ({
   outline: {
     default: {
       backgroundColor: 'transparent',
-      borderColor: colors.primary,
+      borderColor: colors.primary.main,
       borderWidth: 2,
-      borderRadius: 8,
+      borderRadius: 24,
       padding: { x: 22, y: 10 }, // Slightly less padding to account for border
       textStyle: {
-        color: colors.primary,
+        color: colors.primary.main,
         fontWeight: 600,
         fontSize: 16,
       },
     },
     hover: {
-      backgroundColor: `${colors.primary}10`,
-      borderColor: colors.accent1,
+      backgroundColor: colors.secondary.light,
+      borderColor: '#37B02A',
       textStyle: {
-        color: colors.accent1,
+        color: '#37B02A',
       }
     },
     active: {
-      backgroundColor: `${colors.primary}20`,
+      backgroundColor: colors.secondary.medium,
     },
     disabled: {
-      borderColor: colors.gray300,
+      borderColor: colors.neutral.mediumGray,
       textStyle: {
-        color: colors.gray400,
+        color: colors.text.tertiary,
       },
       opacity: 0.6,
     }
   }
 })
 
-// Card component styles
+// Card component styles - Updated for design spec
 export const createCardStyles = (colors: ColorPalette): CardVariants => ({
+  // Product Card - As per design spec
+  product: {
+    default: {
+      backgroundColor: colors.neutral.white,
+      borderColor: 'transparent',
+      borderWidth: 0,
+      borderRadius: 12, // 12px as per spec
+      padding: { x: 16, y: 16 }, // 16px padding
+      shadow: '0 2px 8px rgba(0,0,0,0.1)', // Exact shadow from spec
+    },
+    hover: {
+      shadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+      borderColor: colors.neutral.lightGray,
+    }
+  },
+
+  // Feature Card - As per design spec
+  feature: {
+    default: {
+      backgroundColor: colors.secondary.light, // Light green tint
+      borderColor: 'transparent',
+      borderWidth: 0,
+      borderRadius: 16, // 16px as per spec
+      padding: { x: 32, y: 32 }, // 32px padding
+      // Note: textAlign handled by container CSS, not textStyle
+    },
+    hover: {
+      backgroundColor: colors.secondary.medium,
+    }
+  },
+  
   default: {
     default: {
-      backgroundColor: colors.white,
-      borderColor: colors.gray200,
+      backgroundColor: colors.neutral.white,
+      borderColor: colors.neutral.mediumGray,
       borderWidth: 1,
       borderRadius: 12,
       padding: { x: 24, y: 24 },
@@ -190,36 +239,35 @@ export const createCardStyles = (colors: ColorPalette): CardVariants => ({
     },
     hover: {
       shadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-      borderColor: colors.gray300,
+      borderColor: colors.neutral.darkGray,
     }
   },
   
   elevated: {
     default: {
-      backgroundColor: colors.white,
+      backgroundColor: colors.neutral.white,
       borderColor: 'transparent',
       borderWidth: 0,
-      borderRadius: 16,
+      borderRadius: 12,
       padding: { x: 24, y: 24 },
       shadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
     },
     hover: {
-      shadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
+      shadow: '0 8px 15px rgba(0, 0, 0, 0.15)',
     }
   },
   
   outlined: {
     default: {
-      backgroundColor: colors.white,
-      borderColor: colors.gray300,
-      borderWidth: 2,
+      backgroundColor: 'transparent',
+      borderColor: colors.neutral.mediumGray,
+      borderWidth: 1,
       borderRadius: 12,
-      padding: { x: 22, y: 22 },
-      shadow: 'none',
+      padding: { x: 24, y: 24 },
     },
     hover: {
-      borderColor: colors.primary,
-      shadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
+      borderColor: colors.primary.main,
+      backgroundColor: colors.secondary.light,
     }
   }
 })
@@ -228,72 +276,61 @@ export const createCardStyles = (colors: ColorPalette): CardVariants => ({
 export const createInputStyles = (colors: ColorPalette): InputVariants => ({
   default: {
     default: {
-      backgroundColor: colors.white,
-      borderColor: colors.gray300,
+      backgroundColor: colors.neutral.white,
+      borderColor: colors.neutral.mediumGray,
       borderWidth: 1,
       borderRadius: 8,
       padding: { x: 16, y: 12 },
       textStyle: {
-        color: colors.primaryText,
+        color: colors.text.primary,
         fontSize: 16,
-        fontWeight: 400,
       },
     },
     focus: {
-      borderColor: colors.primary,
-      shadow: `0 0 0 3px ${colors.primary}20`,
+      borderColor: colors.primary.main,
+      shadow: `0 0 0 3px rgba(68, 214, 44, 0.1)`,
     },
     disabled: {
-      backgroundColor: colors.gray100,
-      borderColor: colors.gray200,
+      backgroundColor: colors.neutral.lightGray,
       opacity: 0.6,
     }
   },
   
   filled: {
     default: {
-      backgroundColor: colors.gray100,
+      backgroundColor: colors.neutral.lightGray,
       borderColor: 'transparent',
-      borderWidth: 1,
+      borderWidth: 0,
       borderRadius: 8,
       padding: { x: 16, y: 12 },
       textStyle: {
-        color: colors.primaryText,
+        color: colors.text.primary,
         fontSize: 16,
-        fontWeight: 400,
       },
     },
     focus: {
-      backgroundColor: colors.white,
-      borderColor: colors.primary,
-      shadow: `0 0 0 3px ${colors.primary}20`,
-    },
-    disabled: {
-      backgroundColor: colors.gray200,
-      opacity: 0.6,
+      backgroundColor: colors.neutral.white,
+      borderColor: colors.primary.main,
+      borderWidth: 1,
+      shadow: `0 0 0 3px rgba(68, 214, 44, 0.1)`,
     }
   },
   
   outlined: {
     default: {
       backgroundColor: 'transparent',
-      borderColor: colors.gray400,
-      borderWidth: 2,
+      borderColor: colors.neutral.mediumGray,
+      borderWidth: 1,
       borderRadius: 8,
-      padding: { x: 14, y: 10 },
+      padding: { x: 16, y: 12 },
       textStyle: {
-        color: colors.primaryText,
+        color: colors.text.primary,
         fontSize: 16,
-        fontWeight: 400,
       },
     },
     focus: {
-      borderColor: colors.primary,
-      shadow: `0 0 0 3px ${colors.primary}20`,
-    },
-    disabled: {
-      borderColor: colors.gray300,
-      opacity: 0.6,
+      borderColor: colors.primary.main,
+      shadow: `0 0 0 3px rgba(68, 214, 44, 0.1)`,
     }
   }
 })
@@ -303,10 +340,30 @@ export const createComponentTheme = (colors: ColorPalette): ComponentTheme => ({
   buttons: createButtonStyles(colors),
   cards: createCardStyles(colors),
   inputs: createInputStyles(colors),
+  
+  // Navigation Header - As per design spec
+  navigation: {
+    header: {
+      backgroundColor: colors.neutral.white,
+      borderColor: 'transparent',
+      borderWidth: 0,
+      borderRadius: 0,
+      padding: { x: 0, y: 0 }, // Height handled separately (64px)
+      shadow: '0 1px 3px rgba(0, 0, 0, 0.1)', // Subtle bottom shadow
+    }
+  },
+  
+  // Icons - As per design spec
+  icons: {
+    size: 24, // 24px standard
+    color: colors.primary.main, // Primary green or dark gray
+    style: 'outlined', // Outlined/line icons
+  },
+  
   loadingIndicator: {
-    color: colors.primary,
+    color: colors.primary.main,
     size: 24,
-    strokeWidth: 3,
+    strokeWidth: 2,
   }
 })
 
@@ -318,27 +375,16 @@ export const getComponentStyle = (
   return component[state] || component.default
 }
 
-// CSS generation for web components
 export const generateComponentCSS = (style: ComponentStyle): string => {
-  const css: string[] = []
+  const css = []
   
   if (style.backgroundColor) css.push(`background-color: ${style.backgroundColor}`)
   if (style.borderColor) css.push(`border-color: ${style.borderColor}`)
   if (style.borderWidth !== undefined) css.push(`border-width: ${style.borderWidth}px`)
   if (style.borderRadius !== undefined) css.push(`border-radius: ${style.borderRadius}px`)
+  if (style.padding) css.push(`padding: ${style.padding.y}px ${style.padding.x}px`)
   if (style.shadow) css.push(`box-shadow: ${style.shadow}`)
   if (style.opacity !== undefined) css.push(`opacity: ${style.opacity}`)
-  
-  if (style.padding) {
-    css.push(`padding: ${style.padding.y}px ${style.padding.x}px`)
-  }
-  
-  if (style.textStyle) {
-    if (style.textStyle.color) css.push(`color: ${style.textStyle.color}`)
-    if (style.textStyle.fontSize) css.push(`font-size: ${style.textStyle.fontSize}px`)
-    if (style.textStyle.fontWeight) css.push(`font-weight: ${style.textStyle.fontWeight}`)
-    if (style.textStyle.fontFamily) css.push(`font-family: ${style.textStyle.fontFamily}`)
-  }
   
   return css.join('; ')
 } 

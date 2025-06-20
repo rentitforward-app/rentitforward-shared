@@ -1,10 +1,9 @@
-// Breakpoint System - Responsive design breakpoints
-// Consistent breakpoints for web and mobile platforms
+// Breakpoint System - Rental Platform Design System v1.0
+// Mobile-first responsive design breakpoints for sharing economy marketplace
 
 export interface BreakpointConfig {
   mobile: number
   tablet: number
-  tabletLandscape: number
   desktop: number
   wide: number
 }
@@ -12,7 +11,6 @@ export interface BreakpointConfig {
 export interface MediaQueries {
   mobile: string
   tablet: string
-  tabletLandscape: string
   desktop: string
   wide: string
   
@@ -23,27 +21,25 @@ export interface MediaQueries {
   tabletUp: string
 }
 
-// Breakpoint values (in pixels)
+// Breakpoint values (mobile-first approach)
 export const breakpoints: BreakpointConfig = {
-  mobile: 480,           // Mobile devices
-  tablet: 768,           // Tablets portrait
-  tabletLandscape: 992,  // Tablets landscape
-  desktop: 1200,         // Desktop
-  wide: 1440,           // Wide screens
+  mobile: 320,           // Mobile devices
+  tablet: 768,           // Tablets
+  desktop: 1024,         // Desktop
+  wide: 1200,           // Wide screens
 }
 
-// Media queries for CSS
+// Media queries for CSS (mobile-first)
 export const mediaQueries: MediaQueries = {
-  mobile: `(max-width: ${breakpoints.mobile - 1}px)`,
-  tablet: `(min-width: ${breakpoints.mobile}px) and (max-width: ${breakpoints.tablet - 1}px)`,
-  tabletLandscape: `(min-width: ${breakpoints.tablet}px) and (max-width: ${breakpoints.tabletLandscape - 1}px)`,
-  desktop: `(min-width: ${breakpoints.tabletLandscape}px) and (max-width: ${breakpoints.desktop - 1}px)`,
-  wide: `(min-width: ${breakpoints.desktop}px)`,
+  mobile: `(max-width: ${breakpoints.tablet - 1}px)`,
+  tablet: `(min-width: ${breakpoints.tablet}px) and (max-width: ${breakpoints.desktop - 1}px)`,
+  desktop: `(min-width: ${breakpoints.desktop}px) and (max-width: ${breakpoints.wide - 1}px)`,
+  wide: `(min-width: ${breakpoints.wide}px)`,
   
   // Utility queries
   mobileOnly: `(max-width: ${breakpoints.tablet - 1}px)`,
-  tabletOnly: `(min-width: ${breakpoints.tablet}px) and (max-width: ${breakpoints.tabletLandscape - 1}px)`,
-  desktopUp: `(min-width: ${breakpoints.tabletLandscape}px)`,
+  tabletOnly: `(min-width: ${breakpoints.tablet}px) and (max-width: ${breakpoints.desktop - 1}px)`,
+  desktopUp: `(min-width: ${breakpoints.desktop}px)`,
   tabletUp: `(min-width: ${breakpoints.tablet}px)`,
 }
 
@@ -58,19 +54,15 @@ export const getMediaQuery = (name: keyof MediaQueries): string => {
 
 // Check if current screen size matches breakpoint (for client-side)
 export const isBreakpoint = (breakpointName: keyof BreakpointConfig, currentWidth: number): boolean => {
-  const breakpointValue = breakpoints[breakpointName]
-  
   switch (breakpointName) {
     case 'mobile':
       return currentWidth < breakpoints.tablet
     case 'tablet':
-      return currentWidth >= breakpoints.mobile && currentWidth < breakpoints.tabletLandscape
-    case 'tabletLandscape':
       return currentWidth >= breakpoints.tablet && currentWidth < breakpoints.desktop
     case 'desktop':
-      return currentWidth >= breakpoints.tabletLandscape && currentWidth < breakpoints.wide
+      return currentWidth >= breakpoints.desktop && currentWidth < breakpoints.wide
     case 'wide':
-      return currentWidth >= breakpoints.desktop
+      return currentWidth >= breakpoints.wide
     default:
       return false
   }
@@ -79,8 +71,7 @@ export const isBreakpoint = (breakpointName: keyof BreakpointConfig, currentWidt
 // Get current breakpoint name based on width
 export const getCurrentBreakpoint = (width: number): keyof BreakpointConfig => {
   if (width < breakpoints.tablet) return 'mobile'
-  if (width < breakpoints.tabletLandscape) return 'tablet'
-  if (width < breakpoints.desktop) return 'tabletLandscape'
+  if (width < breakpoints.desktop) return 'tablet'
   if (width < breakpoints.wide) return 'desktop'
   return 'wide'
 }
@@ -98,33 +89,46 @@ export const generateBreakpointVariables = (): Record<string, string> => {
 
 // Tailwind breakpoint configuration
 export const tailwindBreakpoints = {
-  'sm': `${breakpoints.mobile}px`,
-  'md': `${breakpoints.tablet}px`,
-  'lg': `${breakpoints.tabletLandscape}px`,
-  'xl': `${breakpoints.desktop}px`,
-  '2xl': `${breakpoints.wide}px`,
+  'sm': `${breakpoints.mobile}px`,    // 320px
+  'md': `${breakpoints.tablet}px`,    // 768px
+  'lg': `${breakpoints.desktop}px`,   // 1024px
+  'xl': `${breakpoints.wide}px`,      // 1200px
+  '2xl': '1536px',                    // Extra wide (Tailwind default)
 }
 
 // Container max-widths for different breakpoints
 export const containerSizes = {
   mobile: '100%',
   tablet: '720px',
-  tabletLandscape: '960px',
-  desktop: '1140px',
-  wide: '1320px',
+  desktop: '960px',
+  wide: '1200px',     // Updated to match design spec
 }
 
-// Grid system configuration
+// Grid system configuration - Rental Platform Design System
 export const gridConfig = {
   columns: 12,
-  gutter: {
+  gutter: 24,         // 24px gutter as per spec
+  margins: {
     mobile: 16,
     tablet: 24,
     desktop: 32,
   },
-  margins: {
-    mobile: 16,
-    tablet: 32,
-    desktop: 48,
+  // Common grid collapse patterns
+  collapsePatterns: {
+    categories: {
+      desktop: 6,     // 6 columns on desktop
+      tablet: 3,      // 3 columns on tablet
+      mobile: 2,      // 2 columns on mobile
+    },
+    features: {
+      desktop: 3,     // 3-column grid
+      tablet: 2,      // 2 columns on tablet
+      mobile: 1,      // 1 column on mobile
+    },
+    products: {
+      desktop: 4,     // 4-column grid
+      tablet: 3,      // 3 columns on tablet
+      mobile: 2,      // 2 columns on mobile
+    }
   }
 } 

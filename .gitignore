@@ -17,7 +17,11 @@ build/
 
 # Cursor
 .cursorignore
+.cursor
 
 # Compiled
 *.js
 *.d.ts
+
+#MCP
+mcp.json

@@ -196,4 +196,21 @@ export const shadows = {
   xl: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
   '2xl': '0 25px 50px -12px rgb(0 0 0 / 0.25)',
   inner: 'inset 0 2px 4px 0 rgb(0 0 0 / 0.05)',
+}
+
+// Container and layout spacing
+export const layoutSpacing = {
+  containerMaxWidth: '1200px', // As per design spec
+  sectionPadding: {
+    top: 64,    // 64px top padding
+    bottom: 64, // 64px bottom padding
+    sides: 0,   // No side padding (handled by container)
+  },
+  
+  // Hero section specific padding
+  heroPadding: {
+    top: 96,    // 96px as per design spec
+    bottom: 96,
+    sides: 0,
+  }
 } 
