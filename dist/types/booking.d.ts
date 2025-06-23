@@ -46,17 +46,17 @@ export declare const BookingSchema: z.ZodObject<{
         currency: z.ZodDefault<z.ZodString>;
     }, "strip", z.ZodTypeAny, {
         basePrice: number;
-        currency: string;
         totalDays: number;
         subtotal: number;
         serviceFee: number;
         tax: number;
         total: number;
+        currency: string;
         weeklyDiscount?: number | undefined;
         monthlyDiscount?: number | undefined;
-        securityDeposit?: number | undefined;
         cleaningFee?: number | undefined;
         deliveryFee?: number | undefined;
+        securityDeposit?: number | undefined;
     }, {
         basePrice: number;
         totalDays: number;
@@ -64,12 +64,12 @@ export declare const BookingSchema: z.ZodObject<{
         serviceFee: number;
         tax: number;
         total: number;
-        currency?: string | undefined;
         weeklyDiscount?: number | undefined;
         monthlyDiscount?: number | undefined;
-        securityDeposit?: number | undefined;
         cleaningFee?: number | undefined;
         deliveryFee?: number | undefined;
+        securityDeposit?: number | undefined;
+        currency?: string | undefined;
     }>;
     delivery: z.ZodObject<{
         method: z.ZodNativeEnum<typeof DeliveryMethod>;
@@ -115,27 +115,6 @@ export declare const BookingSchema: z.ZodObject<{
     createdAt: z.ZodString;
     updatedAt: z.ZodString;
 }, "strip", z.ZodTypeAny, {
-    id: string;
-    status: BookingStatus;
-    startDate: string;
-    endDate: string;
-    ownerId: string;
-    pricing: {
-        basePrice: number;
-        currency: string;
-        totalDays: number;
-        subtotal: number;
-        serviceFee: number;
-        tax: number;
-        total: number;
-        weeklyDiscount?: number | undefined;
-        monthlyDiscount?: number | undefined;
-        securityDeposit?: number | undefined;
-        cleaningFee?: number | undefined;
-        deliveryFee?: number | undefined;
-    };
-    createdAt: string;
-    updatedAt: string;
     delivery: {
         method: DeliveryMethod;
         pickupAddress?: string | undefined;
@@ -146,10 +125,31 @@ export declare const BookingSchema: z.ZodObject<{
         returnTime?: string | undefined;
         notes?: string | undefined;
     };
+    id: string;
     listingId: string;
+    ownerId: string;
     renterId: string;
+    status: BookingStatus;
+    startDate: string;
+    endDate: string;
     durationDays: number;
+    pricing: {
+        basePrice: number;
+        totalDays: number;
+        subtotal: number;
+        serviceFee: number;
+        tax: number;
+        total: number;
+        currency: string;
+        weeklyDiscount?: number | undefined;
+        monthlyDiscount?: number | undefined;
+        cleaningFee?: number | undefined;
+        deliveryFee?: number | undefined;
+        securityDeposit?: number | undefined;
+    };
     unreadMessagesCount: number;
+    createdAt: string;
+    updatedAt: string;
     specialRequests?: string | undefined;
     renterNotes?: string | undefined;
     ownerNotes?: string | undefined;
@@ -163,26 +163,6 @@ export declare const BookingSchema: z.ZodObject<{
     renterReviewId?: string | undefined;
     ownerReviewId?: string | undefined;
 }, {
-    id: string;
-    startDate: string;
-    endDate: string;
-    ownerId: string;
-    pricing: {
-        basePrice: number;
-        totalDays: number;
-        subtotal: number;
-        serviceFee: number;
-        tax: number;
-        total: number;
-        currency?: string | undefined;
-        weeklyDiscount?: number | undefined;
-        monthlyDiscount?: number | undefined;
-        securityDeposit?: number | undefined;
-        cleaningFee?: number | undefined;
-        deliveryFee?: number | undefined;
-    };
-    createdAt: string;
-    updatedAt: string;
     delivery: {
         method: DeliveryMethod;
         pickupAddress?: string | undefined;
@@ -193,9 +173,29 @@ export declare const BookingSchema: z.ZodObject<{
         returnTime?: string | undefined;
         notes?: string | undefined;
     };
+    id: string;
     listingId: string;
+    ownerId: string;
     renterId: string;
+    startDate: string;
+    endDate: string;
     durationDays: number;
+    pricing: {
+        basePrice: number;
+        totalDays: number;
+        subtotal: number;
+        serviceFee: number;
+        tax: number;
+        total: number;
+        weeklyDiscount?: number | undefined;
+        monthlyDiscount?: number | undefined;
+        cleaningFee?: number | undefined;
+        deliveryFee?: number | undefined;
+        securityDeposit?: number | undefined;
+        currency?: string | undefined;
+    };
+    createdAt: string;
+    updatedAt: string;
     status?: BookingStatus | undefined;
     specialRequests?: string | undefined;
     renterNotes?: string | undefined;
@@ -246,8 +246,6 @@ export declare const CreateBookingSchema: z.ZodObject<{
     specialRequests: z.ZodOptional<z.ZodString>;
     renterNotes: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    startDate: string;
-    endDate: string;
     delivery: {
         method: DeliveryMethod;
         pickupAddress?: string | undefined;
@@ -259,11 +257,11 @@ export declare const CreateBookingSchema: z.ZodObject<{
         notes?: string | undefined;
     };
     listingId: string;
+    startDate: string;
+    endDate: string;
     specialRequests?: string | undefined;
     renterNotes?: string | undefined;
 }, {
-    startDate: string;
-    endDate: string;
     delivery: {
         method: DeliveryMethod;
         pickupAddress?: string | undefined;
@@ -275,6 +273,8 @@ export declare const CreateBookingSchema: z.ZodObject<{
         notes?: string | undefined;
     };
     listingId: string;
+    startDate: string;
+    endDate: string;
     specialRequests?: string | undefined;
     renterNotes?: string | undefined;
 }>;
@@ -314,7 +314,6 @@ export declare const UpdateBookingSchema: z.ZodObject<{
     cancellationReason: z.ZodOptional<z.ZodNativeEnum<typeof BookingCancellationReason>>;
     cancellationNote: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    status?: BookingStatus | undefined;
     delivery?: {
         method?: DeliveryMethod | undefined;
         pickupAddress?: string | undefined;
@@ -325,13 +324,13 @@ export declare const UpdateBookingSchema: z.ZodObject<{
         returnTime?: string | undefined;
         notes?: string | undefined;
     } | undefined;
+    status?: BookingStatus | undefined;
     specialRequests?: string | undefined;
     renterNotes?: string | undefined;
     ownerNotes?: string | undefined;
     cancellationReason?: BookingCancellationReason | undefined;
     cancellationNote?: string | undefined;
 }, {
-    status?: BookingStatus | undefined;
     delivery?: {
         method?: DeliveryMethod | undefined;
         pickupAddress?: string | undefined;
@@ -342,6 +341,7 @@ export declare const UpdateBookingSchema: z.ZodObject<{
         returnTime?: string | undefined;
         notes?: string | undefined;
     } | undefined;
+    status?: BookingStatus | undefined;
     specialRequests?: string | undefined;
     renterNotes?: string | undefined;
     ownerNotes?: string | undefined;
@@ -359,25 +359,25 @@ export declare const BookingFilterSchema: z.ZodObject<{
     page: z.ZodDefault<z.ZodNumber>;
     limit: z.ZodDefault<z.ZodNumber>;
 }, "strip", z.ZodTypeAny, {
-    sortBy: "newest" | "total" | "oldest" | "start_date" | "end_date";
+    sortBy: "total" | "newest" | "oldest" | "start_date" | "end_date";
     page: number;
     limit: number;
-    status?: BookingStatus[] | undefined;
-    startDate?: string | undefined;
-    endDate?: string | undefined;
-    ownerId?: string | undefined;
     listingId?: string | undefined;
+    ownerId?: string | undefined;
     renterId?: string | undefined;
-}, {
     status?: BookingStatus[] | undefined;
     startDate?: string | undefined;
     endDate?: string | undefined;
+}, {
+    listingId?: string | undefined;
     ownerId?: string | undefined;
-    sortBy?: "newest" | "total" | "oldest" | "start_date" | "end_date" | undefined;
+    renterId?: string | undefined;
+    status?: BookingStatus[] | undefined;
+    startDate?: string | undefined;
+    endDate?: string | undefined;
+    sortBy?: "total" | "newest" | "oldest" | "start_date" | "end_date" | undefined;
     page?: number | undefined;
     limit?: number | undefined;
-    listingId?: string | undefined;
-    renterId?: string | undefined;
 }>;
 export type Booking = z.infer<typeof BookingSchema>;
 export type CreateBooking = z.infer<typeof CreateBookingSchema>;

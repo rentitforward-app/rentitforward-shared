@@ -91,20 +91,15 @@ export declare const UserProfileSchema: z.ZodObject<{
     stripeCustomerId: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
     id: string;
+    status: UserStatus;
+    rating: number;
+    reviewCount: number;
     email: string;
     firstName: string;
     lastName: string;
-    status: UserStatus;
     role: UserRole;
     verificationStatus: VerificationStatus;
-    rating: number;
-    reviewCount: number;
     joinedAt: string;
-    displayName?: string | undefined;
-    avatar?: string | undefined;
-    phone?: string | undefined;
-    dateOfBirth?: string | undefined;
-    bio?: string | undefined;
     location?: {
         address: string;
         city: string;
@@ -116,6 +111,11 @@ export declare const UserProfileSchema: z.ZodObject<{
             lng: number;
         } | undefined;
     } | undefined;
+    displayName?: string | undefined;
+    avatar?: string | undefined;
+    phone?: string | undefined;
+    dateOfBirth?: string | undefined;
+    bio?: string | undefined;
     verificationDocuments?: string[] | undefined;
     lastActiveAt?: string | undefined;
     preferences?: {
@@ -132,11 +132,6 @@ export declare const UserProfileSchema: z.ZodObject<{
     firstName: string;
     lastName: string;
     joinedAt: string;
-    displayName?: string | undefined;
-    avatar?: string | undefined;
-    phone?: string | undefined;
-    dateOfBirth?: string | undefined;
-    bio?: string | undefined;
     status?: UserStatus | undefined;
     location?: {
         address: string;
@@ -149,11 +144,16 @@ export declare const UserProfileSchema: z.ZodObject<{
             lng: number;
         } | undefined;
     } | undefined;
+    rating?: number | undefined;
+    reviewCount?: number | undefined;
+    displayName?: string | undefined;
+    avatar?: string | undefined;
+    phone?: string | undefined;
+    dateOfBirth?: string | undefined;
+    bio?: string | undefined;
     role?: UserRole | undefined;
     verificationStatus?: VerificationStatus | undefined;
     verificationDocuments?: string[] | undefined;
-    rating?: number | undefined;
-    reviewCount?: number | undefined;
     lastActiveAt?: string | undefined;
     preferences?: {
         emailNotifications?: boolean | undefined;
@@ -238,14 +238,6 @@ export declare const UserUpdateSchema: z.ZodObject<Omit<{
     stripeAccountId: z.ZodOptional<z.ZodOptional<z.ZodString>>;
     stripeCustomerId: z.ZodOptional<z.ZodOptional<z.ZodString>>;
 }, "id" | "role" | "joinedAt" | "stripeAccountId" | "stripeCustomerId">, "strip", z.ZodTypeAny, {
-    email?: string | undefined;
-    firstName?: string | undefined;
-    lastName?: string | undefined;
-    displayName?: string | undefined;
-    avatar?: string | undefined;
-    phone?: string | undefined;
-    dateOfBirth?: string | undefined;
-    bio?: string | undefined;
     status?: UserStatus | undefined;
     location?: {
         address: string;
@@ -258,18 +250,8 @@ export declare const UserUpdateSchema: z.ZodObject<Omit<{
             lng: number;
         } | undefined;
     } | undefined;
-    verificationStatus?: VerificationStatus | undefined;
-    verificationDocuments?: string[] | undefined;
     rating?: number | undefined;
     reviewCount?: number | undefined;
-    lastActiveAt?: string | undefined;
-    preferences?: {
-        emailNotifications: boolean;
-        pushNotifications: boolean;
-        smsNotifications: boolean;
-        marketingEmails: boolean;
-    } | undefined;
-}, {
     email?: string | undefined;
     firstName?: string | undefined;
     lastName?: string | undefined;
@@ -278,6 +260,16 @@ export declare const UserUpdateSchema: z.ZodObject<Omit<{
     phone?: string | undefined;
     dateOfBirth?: string | undefined;
     bio?: string | undefined;
+    verificationStatus?: VerificationStatus | undefined;
+    verificationDocuments?: string[] | undefined;
+    lastActiveAt?: string | undefined;
+    preferences?: {
+        emailNotifications: boolean;
+        pushNotifications: boolean;
+        smsNotifications: boolean;
+        marketingEmails: boolean;
+    } | undefined;
+}, {
     status?: UserStatus | undefined;
     location?: {
         address: string;
@@ -290,10 +282,18 @@ export declare const UserUpdateSchema: z.ZodObject<Omit<{
             lng: number;
         } | undefined;
     } | undefined;
-    verificationStatus?: VerificationStatus | undefined;
-    verificationDocuments?: string[] | undefined;
     rating?: number | undefined;
     reviewCount?: number | undefined;
+    email?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    displayName?: string | undefined;
+    avatar?: string | undefined;
+    phone?: string | undefined;
+    dateOfBirth?: string | undefined;
+    bio?: string | undefined;
+    verificationStatus?: VerificationStatus | undefined;
+    verificationDocuments?: string[] | undefined;
     lastActiveAt?: string | undefined;
     preferences?: {
         emailNotifications?: boolean | undefined;

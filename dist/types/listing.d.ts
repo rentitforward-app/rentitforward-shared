@@ -92,19 +92,19 @@ export declare const PricingSchema: z.ZodObject<{
     pricingType: PricingType;
     weeklyDiscount?: number | undefined;
     monthlyDiscount?: number | undefined;
-    securityDeposit?: number | undefined;
     cleaningFee?: number | undefined;
     deliveryFee?: number | undefined;
+    securityDeposit?: number | undefined;
     pickupFee?: number | undefined;
 }, {
     basePrice: number;
-    currency?: string | undefined;
-    pricingType?: PricingType | undefined;
     weeklyDiscount?: number | undefined;
     monthlyDiscount?: number | undefined;
-    securityDeposit?: number | undefined;
     cleaningFee?: number | undefined;
     deliveryFee?: number | undefined;
+    securityDeposit?: number | undefined;
+    currency?: string | undefined;
+    pricingType?: PricingType | undefined;
     pickupFee?: number | undefined;
 }>;
 export declare const ListingSchema: z.ZodObject<{
@@ -157,19 +157,19 @@ export declare const ListingSchema: z.ZodObject<{
         pricingType: PricingType;
         weeklyDiscount?: number | undefined;
         monthlyDiscount?: number | undefined;
-        securityDeposit?: number | undefined;
         cleaningFee?: number | undefined;
         deliveryFee?: number | undefined;
+        securityDeposit?: number | undefined;
         pickupFee?: number | undefined;
     }, {
         basePrice: number;
-        currency?: string | undefined;
-        pricingType?: PricingType | undefined;
         weeklyDiscount?: number | undefined;
         monthlyDiscount?: number | undefined;
-        securityDeposit?: number | undefined;
         cleaningFee?: number | undefined;
         deliveryFee?: number | undefined;
+        securityDeposit?: number | undefined;
+        currency?: string | undefined;
+        pricingType?: PricingType | undefined;
         pickupFee?: number | undefined;
     }>;
     availability: z.ZodObject<{
@@ -259,7 +259,41 @@ export declare const ListingSchema: z.ZodObject<{
     lastBookedAt: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
     id: string;
+    ownerId: string;
     status: ListingStatus;
+    pricing: {
+        basePrice: number;
+        currency: string;
+        pricingType: PricingType;
+        weeklyDiscount?: number | undefined;
+        monthlyDiscount?: number | undefined;
+        cleaningFee?: number | undefined;
+        deliveryFee?: number | undefined;
+        securityDeposit?: number | undefined;
+        pickupFee?: number | undefined;
+    };
+    createdAt: string;
+    updatedAt: string;
+    title: string;
+    description: string;
+    category: ListingCategory;
+    condition: ListingCondition;
+    images: {
+        id: string;
+        url: string;
+        order: number;
+        uploadedAt: string;
+        thumbnail?: string | undefined;
+        alt?: string | undefined;
+    }[];
+    availability: {
+        startDate: string;
+        endDate: string;
+        minimumRentalPeriod: number;
+        advanceBookingDays: number;
+        unavailableDates?: string[] | undefined;
+        maximumRentalPeriod?: number | undefined;
+    };
     location: {
         address: string;
         city: string;
@@ -274,45 +308,11 @@ export declare const ListingSchema: z.ZodObject<{
         deliveryAvailable: boolean;
         deliveryRadius?: number | undefined;
     };
-    rating: number;
-    reviewCount: number;
-    ownerId: string;
-    title: string;
-    description: string;
-    category: ListingCategory;
-    condition: ListingCondition;
-    images: {
-        id: string;
-        url: string;
-        order: number;
-        uploadedAt: string;
-        thumbnail?: string | undefined;
-        alt?: string | undefined;
-    }[];
-    pricing: {
-        basePrice: number;
-        currency: string;
-        pricingType: PricingType;
-        weeklyDiscount?: number | undefined;
-        monthlyDiscount?: number | undefined;
-        securityDeposit?: number | undefined;
-        cleaningFee?: number | undefined;
-        deliveryFee?: number | undefined;
-        pickupFee?: number | undefined;
-    };
-    availability: {
-        startDate: string;
-        endDate: string;
-        minimumRentalPeriod: number;
-        advanceBookingDays: number;
-        unavailableDates?: string[] | undefined;
-        maximumRentalPeriod?: number | undefined;
-    };
     viewCount: number;
     favoriteCount: number;
     bookingCount: number;
-    createdAt: string;
-    updatedAt: string;
+    rating: number;
+    reviewCount: number;
     subcategory?: string | undefined;
     brand?: string | undefined;
     model?: string | undefined;
@@ -329,6 +329,40 @@ export declare const ListingSchema: z.ZodObject<{
     lastBookedAt?: string | undefined;
 }, {
     id: string;
+    ownerId: string;
+    pricing: {
+        basePrice: number;
+        weeklyDiscount?: number | undefined;
+        monthlyDiscount?: number | undefined;
+        cleaningFee?: number | undefined;
+        deliveryFee?: number | undefined;
+        securityDeposit?: number | undefined;
+        currency?: string | undefined;
+        pricingType?: PricingType | undefined;
+        pickupFee?: number | undefined;
+    };
+    createdAt: string;
+    updatedAt: string;
+    title: string;
+    description: string;
+    category: ListingCategory;
+    condition: ListingCondition;
+    images: {
+        id: string;
+        url: string;
+        order: number;
+        uploadedAt: string;
+        thumbnail?: string | undefined;
+        alt?: string | undefined;
+    }[];
+    availability: {
+        startDate: string;
+        endDate: string;
+        unavailableDates?: string[] | undefined;
+        minimumRentalPeriod?: number | undefined;
+        maximumRentalPeriod?: number | undefined;
+        advanceBookingDays?: number | undefined;
+    };
     location: {
         address: string;
         city: string;
@@ -343,43 +377,7 @@ export declare const ListingSchema: z.ZodObject<{
         pickupAvailable?: boolean | undefined;
         deliveryAvailable?: boolean | undefined;
     };
-    ownerId: string;
-    title: string;
-    description: string;
-    category: ListingCategory;
-    condition: ListingCondition;
-    images: {
-        id: string;
-        url: string;
-        order: number;
-        uploadedAt: string;
-        thumbnail?: string | undefined;
-        alt?: string | undefined;
-    }[];
-    pricing: {
-        basePrice: number;
-        currency?: string | undefined;
-        pricingType?: PricingType | undefined;
-        weeklyDiscount?: number | undefined;
-        monthlyDiscount?: number | undefined;
-        securityDeposit?: number | undefined;
-        cleaningFee?: number | undefined;
-        deliveryFee?: number | undefined;
-        pickupFee?: number | undefined;
-    };
-    availability: {
-        startDate: string;
-        endDate: string;
-        unavailableDates?: string[] | undefined;
-        minimumRentalPeriod?: number | undefined;
-        maximumRentalPeriod?: number | undefined;
-        advanceBookingDays?: number | undefined;
-    };
-    createdAt: string;
-    updatedAt: string;
     status?: ListingStatus | undefined;
-    rating?: number | undefined;
-    reviewCount?: number | undefined;
     subcategory?: string | undefined;
     brand?: string | undefined;
     model?: string | undefined;
@@ -393,6 +391,8 @@ export declare const ListingSchema: z.ZodObject<{
     viewCount?: number | undefined;
     favoriteCount?: number | undefined;
     bookingCount?: number | undefined;
+    rating?: number | undefined;
+    reviewCount?: number | undefined;
     tags?: string[] | undefined;
     publishedAt?: string | undefined;
     featuredUntil?: string | undefined;
@@ -448,19 +448,19 @@ export declare const CreateListingSchema: z.ZodObject<Omit<{
         pricingType: PricingType;
         weeklyDiscount?: number | undefined;
         monthlyDiscount?: number | undefined;
-        securityDeposit?: number | undefined;
         cleaningFee?: number | undefined;
         deliveryFee?: number | undefined;
+        securityDeposit?: number | undefined;
         pickupFee?: number | undefined;
     }, {
         basePrice: number;
-        currency?: string | undefined;
-        pricingType?: PricingType | undefined;
         weeklyDiscount?: number | undefined;
         monthlyDiscount?: number | undefined;
-        securityDeposit?: number | undefined;
         cleaningFee?: number | undefined;
         deliveryFee?: number | undefined;
+        securityDeposit?: number | undefined;
+        currency?: string | undefined;
+        pricingType?: PricingType | undefined;
         pickupFee?: number | undefined;
     }>;
     availability: z.ZodObject<{
@@ -548,7 +548,38 @@ export declare const CreateListingSchema: z.ZodObject<Omit<{
     publishedAt: z.ZodOptional<z.ZodString>;
     featuredUntil: z.ZodOptional<z.ZodString>;
     lastBookedAt: z.ZodOptional<z.ZodString>;
-}, "id" | "status" | "rating" | "reviewCount" | "ownerId" | "viewCount" | "favoriteCount" | "bookingCount" | "createdAt" | "updatedAt" | "publishedAt" | "lastBookedAt">, "strip", z.ZodTypeAny, {
+}, "id" | "ownerId" | "status" | "createdAt" | "updatedAt" | "viewCount" | "favoriteCount" | "bookingCount" | "rating" | "reviewCount" | "publishedAt" | "lastBookedAt">, "strip", z.ZodTypeAny, {
+    pricing: {
+        basePrice: number;
+        currency: string;
+        pricingType: PricingType;
+        weeklyDiscount?: number | undefined;
+        monthlyDiscount?: number | undefined;
+        cleaningFee?: number | undefined;
+        deliveryFee?: number | undefined;
+        securityDeposit?: number | undefined;
+        pickupFee?: number | undefined;
+    };
+    title: string;
+    description: string;
+    category: ListingCategory;
+    condition: ListingCondition;
+    images: {
+        id: string;
+        url: string;
+        order: number;
+        uploadedAt: string;
+        thumbnail?: string | undefined;
+        alt?: string | undefined;
+    }[];
+    availability: {
+        startDate: string;
+        endDate: string;
+        minimumRentalPeriod: number;
+        advanceBookingDays: number;
+        unavailableDates?: string[] | undefined;
+        maximumRentalPeriod?: number | undefined;
+    };
     location: {
         address: string;
         city: string;
@@ -563,37 +594,6 @@ export declare const CreateListingSchema: z.ZodObject<Omit<{
         deliveryAvailable: boolean;
         deliveryRadius?: number | undefined;
     };
-    title: string;
-    description: string;
-    category: ListingCategory;
-    condition: ListingCondition;
-    images: {
-        id: string;
-        url: string;
-        order: number;
-        uploadedAt: string;
-        thumbnail?: string | undefined;
-        alt?: string | undefined;
-    }[];
-    pricing: {
-        basePrice: number;
-        currency: string;
-        pricingType: PricingType;
-        weeklyDiscount?: number | undefined;
-        monthlyDiscount?: number | undefined;
-        securityDeposit?: number | undefined;
-        cleaningFee?: number | undefined;
-        deliveryFee?: number | undefined;
-        pickupFee?: number | undefined;
-    };
-    availability: {
-        startDate: string;
-        endDate: string;
-        minimumRentalPeriod: number;
-        advanceBookingDays: number;
-        unavailableDates?: string[] | undefined;
-        maximumRentalPeriod?: number | undefined;
-    };
     subcategory?: string | undefined;
     brand?: string | undefined;
     model?: string | undefined;
@@ -607,19 +607,16 @@ export declare const CreateListingSchema: z.ZodObject<Omit<{
     tags?: string[] | undefined;
     featuredUntil?: string | undefined;
 }, {
-    location: {
-        address: string;
-        city: string;
-        state: string;
-        postcode: string;
-        coordinates: {
-            lat: number;
-            lng: number;
-        };
-        country?: string | undefined;
-        deliveryRadius?: number | undefined;
-        pickupAvailable?: boolean | undefined;
-        deliveryAvailable?: boolean | undefined;
+    pricing: {
+        basePrice: number;
+        weeklyDiscount?: number | undefined;
+        monthlyDiscount?: number | undefined;
+        cleaningFee?: number | undefined;
+        deliveryFee?: number | undefined;
+        securityDeposit?: number | undefined;
+        currency?: string | undefined;
+        pricingType?: PricingType | undefined;
+        pickupFee?: number | undefined;
     };
     title: string;
     description: string;
@@ -633,17 +630,6 @@ export declare const CreateListingSchema: z.ZodObject<Omit<{
         thumbnail?: string | undefined;
         alt?: string | undefined;
     }[];
-    pricing: {
-        basePrice: number;
-        currency?: string | undefined;
-        pricingType?: PricingType | undefined;
-        weeklyDiscount?: number | undefined;
-        monthlyDiscount?: number | undefined;
-        securityDeposit?: number | undefined;
-        cleaningFee?: number | undefined;
-        deliveryFee?: number | undefined;
-        pickupFee?: number | undefined;
-    };
     availability: {
         startDate: string;
         endDate: string;
@@ -651,6 +637,20 @@ export declare const CreateListingSchema: z.ZodObject<Omit<{
         minimumRentalPeriod?: number | undefined;
         maximumRentalPeriod?: number | undefined;
         advanceBookingDays?: number | undefined;
+    };
+    location: {
+        address: string;
+        city: string;
+        state: string;
+        postcode: string;
+        coordinates: {
+            lat: number;
+            lng: number;
+        };
+        country?: string | undefined;
+        deliveryRadius?: number | undefined;
+        pickupAvailable?: boolean | undefined;
+        deliveryAvailable?: boolean | undefined;
     };
     subcategory?: string | undefined;
     brand?: string | undefined;
@@ -666,6 +666,90 @@ export declare const CreateListingSchema: z.ZodObject<Omit<{
     featuredUntil?: string | undefined;
 }>;
 export declare const UpdateListingSchema: z.ZodObject<{
+    pricing: z.ZodOptional<z.ZodObject<{
+        basePrice: z.ZodNumber;
+        currency: z.ZodDefault<z.ZodString>;
+        pricingType: z.ZodDefault<z.ZodNativeEnum<typeof PricingType>>;
+        weeklyDiscount: z.ZodOptional<z.ZodNumber>;
+        monthlyDiscount: z.ZodOptional<z.ZodNumber>;
+        securityDeposit: z.ZodOptional<z.ZodNumber>;
+        cleaningFee: z.ZodOptional<z.ZodNumber>;
+        deliveryFee: z.ZodOptional<z.ZodNumber>;
+        pickupFee: z.ZodOptional<z.ZodNumber>;
+    }, "strip", z.ZodTypeAny, {
+        basePrice: number;
+        currency: string;
+        pricingType: PricingType;
+        weeklyDiscount?: number | undefined;
+        monthlyDiscount?: number | undefined;
+        cleaningFee?: number | undefined;
+        deliveryFee?: number | undefined;
+        securityDeposit?: number | undefined;
+        pickupFee?: number | undefined;
+    }, {
+        basePrice: number;
+        weeklyDiscount?: number | undefined;
+        monthlyDiscount?: number | undefined;
+        cleaningFee?: number | undefined;
+        deliveryFee?: number | undefined;
+        securityDeposit?: number | undefined;
+        currency?: string | undefined;
+        pricingType?: PricingType | undefined;
+        pickupFee?: number | undefined;
+    }>>;
+    title: z.ZodOptional<z.ZodString>;
+    description: z.ZodOptional<z.ZodString>;
+    category: z.ZodOptional<z.ZodNativeEnum<typeof ListingCategory>>;
+    subcategory: z.ZodOptional<z.ZodOptional<z.ZodString>>;
+    condition: z.ZodOptional<z.ZodNativeEnum<typeof ListingCondition>>;
+    brand: z.ZodOptional<z.ZodOptional<z.ZodString>>;
+    model: z.ZodOptional<z.ZodOptional<z.ZodString>>;
+    year: z.ZodOptional<z.ZodOptional<z.ZodNumber>>;
+    specifications: z.ZodOptional<z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodString>>>;
+    images: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        id: z.ZodString;
+        url: z.ZodString;
+        thumbnail: z.ZodOptional<z.ZodString>;
+        alt: z.ZodOptional<z.ZodString>;
+        order: z.ZodNumber;
+        uploadedAt: z.ZodString;
+    }, "strip", z.ZodTypeAny, {
+        id: string;
+        url: string;
+        order: number;
+        uploadedAt: string;
+        thumbnail?: string | undefined;
+        alt?: string | undefined;
+    }, {
+        id: string;
+        url: string;
+        order: number;
+        uploadedAt: string;
+        thumbnail?: string | undefined;
+        alt?: string | undefined;
+    }>, "many">>;
+    availability: z.ZodOptional<z.ZodObject<{
+        startDate: z.ZodString;
+        endDate: z.ZodString;
+        unavailableDates: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
+        minimumRentalPeriod: z.ZodDefault<z.ZodNumber>;
+        maximumRentalPeriod: z.ZodOptional<z.ZodNumber>;
+        advanceBookingDays: z.ZodDefault<z.ZodNumber>;
+    }, "strip", z.ZodTypeAny, {
+        startDate: string;
+        endDate: string;
+        minimumRentalPeriod: number;
+        advanceBookingDays: number;
+        unavailableDates?: string[] | undefined;
+        maximumRentalPeriod?: number | undefined;
+    }, {
+        startDate: string;
+        endDate: string;
+        unavailableDates?: string[] | undefined;
+        minimumRentalPeriod?: number | undefined;
+        maximumRentalPeriod?: number | undefined;
+        advanceBookingDays?: number | undefined;
+    }>>;
     location: z.ZodOptional<z.ZodObject<{
         address: z.ZodString;
         city: z.ZodString;
@@ -712,90 +796,6 @@ export declare const UpdateListingSchema: z.ZodObject<{
         pickupAvailable?: boolean | undefined;
         deliveryAvailable?: boolean | undefined;
     }>>;
-    title: z.ZodOptional<z.ZodString>;
-    description: z.ZodOptional<z.ZodString>;
-    category: z.ZodOptional<z.ZodNativeEnum<typeof ListingCategory>>;
-    subcategory: z.ZodOptional<z.ZodOptional<z.ZodString>>;
-    condition: z.ZodOptional<z.ZodNativeEnum<typeof ListingCondition>>;
-    brand: z.ZodOptional<z.ZodOptional<z.ZodString>>;
-    model: z.ZodOptional<z.ZodOptional<z.ZodString>>;
-    year: z.ZodOptional<z.ZodOptional<z.ZodNumber>>;
-    specifications: z.ZodOptional<z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodString>>>;
-    images: z.ZodOptional<z.ZodArray<z.ZodObject<{
-        id: z.ZodString;
-        url: z.ZodString;
-        thumbnail: z.ZodOptional<z.ZodString>;
-        alt: z.ZodOptional<z.ZodString>;
-        order: z.ZodNumber;
-        uploadedAt: z.ZodString;
-    }, "strip", z.ZodTypeAny, {
-        id: string;
-        url: string;
-        order: number;
-        uploadedAt: string;
-        thumbnail?: string | undefined;
-        alt?: string | undefined;
-    }, {
-        id: string;
-        url: string;
-        order: number;
-        uploadedAt: string;
-        thumbnail?: string | undefined;
-        alt?: string | undefined;
-    }>, "many">>;
-    pricing: z.ZodOptional<z.ZodObject<{
-        basePrice: z.ZodNumber;
-        currency: z.ZodDefault<z.ZodString>;
-        pricingType: z.ZodDefault<z.ZodNativeEnum<typeof PricingType>>;
-        weeklyDiscount: z.ZodOptional<z.ZodNumber>;
-        monthlyDiscount: z.ZodOptional<z.ZodNumber>;
-        securityDeposit: z.ZodOptional<z.ZodNumber>;
-        cleaningFee: z.ZodOptional<z.ZodNumber>;
-        deliveryFee: z.ZodOptional<z.ZodNumber>;
-        pickupFee: z.ZodOptional<z.ZodNumber>;
-    }, "strip", z.ZodTypeAny, {
-        basePrice: number;
-        currency: string;
-        pricingType: PricingType;
-        weeklyDiscount?: number | undefined;
-        monthlyDiscount?: number | undefined;
-        securityDeposit?: number | undefined;
-        cleaningFee?: number | undefined;
-        deliveryFee?: number | undefined;
-        pickupFee?: number | undefined;
-    }, {
-        basePrice: number;
-        currency?: string | undefined;
-        pricingType?: PricingType | undefined;
-        weeklyDiscount?: number | undefined;
-        monthlyDiscount?: number | undefined;
-        securityDeposit?: number | undefined;
-        cleaningFee?: number | undefined;
-        deliveryFee?: number | undefined;
-        pickupFee?: number | undefined;
-    }>>;
-    availability: z.ZodOptional<z.ZodObject<{
-        startDate: z.ZodString;
-        endDate: z.ZodString;
-        unavailableDates: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
-        minimumRentalPeriod: z.ZodDefault<z.ZodNumber>;
-        maximumRentalPeriod: z.ZodOptional<z.ZodNumber>;
-        advanceBookingDays: z.ZodDefault<z.ZodNumber>;
-    }, "strip", z.ZodTypeAny, {
-        startDate: string;
-        endDate: string;
-        minimumRentalPeriod: number;
-        advanceBookingDays: number;
-        unavailableDates?: string[] | undefined;
-        maximumRentalPeriod?: number | undefined;
-    }, {
-        startDate: string;
-        endDate: string;
-        unavailableDates?: string[] | undefined;
-        minimumRentalPeriod?: number | undefined;
-        maximumRentalPeriod?: number | undefined;
-        advanceBookingDays?: number | undefined;
-    }>>;
     features: z.ZodOptional<z.ZodOptional<z.ZodArray<z.ZodString, "many">>>;
     includedItems: z.ZodOptional<z.ZodOptional<z.ZodArray<z.ZodString, "many">>>;
     requirements: z.ZodOptional<z.ZodOptional<z.ZodArray<z.ZodString, "many">>>;
@@ -804,6 +804,42 @@ export declare const UpdateListingSchema: z.ZodObject<{
     tags: z.ZodOptional<z.ZodOptional<z.ZodArray<z.ZodString, "many">>>;
     featuredUntil: z.ZodOptional<z.ZodOptional<z.ZodString>>;
 }, "strip", z.ZodTypeAny, {
+    pricing?: {
+        basePrice: number;
+        currency: string;
+        pricingType: PricingType;
+        weeklyDiscount?: number | undefined;
+        monthlyDiscount?: number | undefined;
+        cleaningFee?: number | undefined;
+        deliveryFee?: number | undefined;
+        securityDeposit?: number | undefined;
+        pickupFee?: number | undefined;
+    } | undefined;
+    title?: string | undefined;
+    description?: string | undefined;
+    category?: ListingCategory | undefined;
+    subcategory?: string | undefined;
+    condition?: ListingCondition | undefined;
+    brand?: string | undefined;
+    model?: string | undefined;
+    year?: number | undefined;
+    specifications?: Record<string, string> | undefined;
+    images?: {
+        id: string;
+        url: string;
+        order: number;
+        uploadedAt: string;
+        thumbnail?: string | undefined;
+        alt?: string | undefined;
+    }[] | undefined;
+    availability?: {
+        startDate: string;
+        endDate: string;
+        minimumRentalPeriod: number;
+        advanceBookingDays: number;
+        unavailableDates?: string[] | undefined;
+        maximumRentalPeriod?: number | undefined;
+    } | undefined;
     location?: {
         address: string;
         city: string;
@@ -818,6 +854,25 @@ export declare const UpdateListingSchema: z.ZodObject<{
         deliveryAvailable: boolean;
         deliveryRadius?: number | undefined;
     } | undefined;
+    features?: string[] | undefined;
+    includedItems?: string[] | undefined;
+    requirements?: string[] | undefined;
+    restrictions?: string[] | undefined;
+    instructions?: string | undefined;
+    tags?: string[] | undefined;
+    featuredUntil?: string | undefined;
+}, {
+    pricing?: {
+        basePrice: number;
+        weeklyDiscount?: number | undefined;
+        monthlyDiscount?: number | undefined;
+        cleaningFee?: number | undefined;
+        deliveryFee?: number | undefined;
+        securityDeposit?: number | undefined;
+        currency?: string | undefined;
+        pricingType?: PricingType | undefined;
+        pickupFee?: number | undefined;
+    } | undefined;
     title?: string | undefined;
     description?: string | undefined;
     category?: ListingCategory | undefined;
@@ -835,33 +890,14 @@ export declare const UpdateListingSchema: z.ZodObject<{
         thumbnail?: string | undefined;
         alt?: string | undefined;
     }[] | undefined;
-    pricing?: {
-        basePrice: number;
-        currency: string;
-        pricingType: PricingType;
-        weeklyDiscount?: number | undefined;
-        monthlyDiscount?: number | undefined;
-        securityDeposit?: number | undefined;
-        cleaningFee?: number | undefined;
-        deliveryFee?: number | undefined;
-        pickupFee?: number | undefined;
-    } | undefined;
     availability?: {
         startDate: string;
         endDate: string;
-        minimumRentalPeriod: number;
-        advanceBookingDays: number;
         unavailableDates?: string[] | undefined;
+        minimumRentalPeriod?: number | undefined;
         maximumRentalPeriod?: number | undefined;
+        advanceBookingDays?: number | undefined;
     } | undefined;
-    features?: string[] | undefined;
-    includedItems?: string[] | undefined;
-    requirements?: string[] | undefined;
-    restrictions?: string[] | undefined;
-    instructions?: string | undefined;
-    tags?: string[] | undefined;
-    featuredUntil?: string | undefined;
-}, {
     location?: {
         address: string;
         city: string;
@@ -875,42 +911,6 @@ export declare const UpdateListingSchema: z.ZodObject<{
         deliveryRadius?: number | undefined;
         pickupAvailable?: boolean | undefined;
         deliveryAvailable?: boolean | undefined;
-    } | undefined;
-    title?: string | undefined;
-    description?: string | undefined;
-    category?: ListingCategory | undefined;
-    subcategory?: string | undefined;
-    condition?: ListingCondition | undefined;
-    brand?: string | undefined;
-    model?: string | undefined;
-    year?: number | undefined;
-    specifications?: Record<string, string> | undefined;
-    images?: {
-        id: string;
-        url: string;
-        order: number;
-        uploadedAt: string;
-        thumbnail?: string | undefined;
-        alt?: string | undefined;
-    }[] | undefined;
-    pricing?: {
-        basePrice: number;
-        currency?: string | undefined;
-        pricingType?: PricingType | undefined;
-        weeklyDiscount?: number | undefined;
-        monthlyDiscount?: number | undefined;
-        securityDeposit?: number | undefined;
-        cleaningFee?: number | undefined;
-        deliveryFee?: number | undefined;
-        pickupFee?: number | undefined;
-    } | undefined;
-    availability?: {
-        startDate: string;
-        endDate: string;
-        unavailableDates?: string[] | undefined;
-        minimumRentalPeriod?: number | undefined;
-        maximumRentalPeriod?: number | undefined;
-        advanceBookingDays?: number | undefined;
     } | undefined;
     features?: string[] | undefined;
     includedItems?: string[] | undefined;
@@ -947,41 +947,41 @@ export declare const ListingFilterSchema: z.ZodObject<{
     page: z.ZodDefault<z.ZodNumber>;
     limit: z.ZodDefault<z.ZodNumber>;
 }, "strip", z.ZodTypeAny, {
-    sortBy: "rating" | "relevance" | "price_low" | "price_high" | "newest" | "distance";
+    sortBy: "newest" | "rating" | "relevance" | "price_low" | "price_high" | "distance";
     page: number;
     limit: number;
+    startDate?: string | undefined;
+    endDate?: string | undefined;
+    category?: ListingCategory | undefined;
+    condition?: ListingCondition[] | undefined;
     location?: {
         lat: number;
         lng: number;
         radius: number;
     } | undefined;
-    startDate?: string | undefined;
-    endDate?: string | undefined;
-    category?: ListingCategory | undefined;
-    condition?: ListingCondition[] | undefined;
     pickupAvailable?: boolean | undefined;
     deliveryAvailable?: boolean | undefined;
     features?: string[] | undefined;
     minPrice?: number | undefined;
     maxPrice?: number | undefined;
 }, {
+    startDate?: string | undefined;
+    endDate?: string | undefined;
+    sortBy?: "newest" | "rating" | "relevance" | "price_low" | "price_high" | "distance" | undefined;
+    page?: number | undefined;
+    limit?: number | undefined;
+    category?: ListingCategory | undefined;
+    condition?: ListingCondition[] | undefined;
     location?: {
         lat: number;
         lng: number;
         radius?: number | undefined;
     } | undefined;
-    startDate?: string | undefined;
-    endDate?: string | undefined;
-    category?: ListingCategory | undefined;
-    condition?: ListingCondition[] | undefined;
     pickupAvailable?: boolean | undefined;
     deliveryAvailable?: boolean | undefined;
     features?: string[] | undefined;
     minPrice?: number | undefined;
     maxPrice?: number | undefined;
-    sortBy?: "rating" | "relevance" | "price_low" | "price_high" | "newest" | "distance" | undefined;
-    page?: number | undefined;
-    limit?: number | undefined;
 }>;
 export type Listing = z.infer<typeof ListingSchema>;
 export type CreateListing = z.infer<typeof CreateListingSchema>;
