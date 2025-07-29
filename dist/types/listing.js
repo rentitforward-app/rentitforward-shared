@@ -22,16 +22,17 @@ var ListingCondition;
 })(ListingCondition || (exports.ListingCondition = ListingCondition = {}));
 var ListingCategory;
 (function (ListingCategory) {
-    ListingCategory["TOOLS_DIY"] = "tools_diy";
-    ListingCategory["ELECTRONICS"] = "electronics";
-    ListingCategory["CAMERAS"] = "cameras";
-    ListingCategory["SPORTS_OUTDOORS"] = "sports_outdoors";
-    ListingCategory["EVENT_PARTY"] = "event_party";
-    ListingCategory["INSTRUMENTS"] = "instruments";
-    ListingCategory["AUTOMOTIVE"] = "automotive";
-    ListingCategory["HOME_GARDEN"] = "home_garden";
-    ListingCategory["APPLIANCES"] = "appliances";
-    ListingCategory["OTHER"] = "other";
+    ListingCategory["TOOLS_DIY_EQUIPMENT"] = "tools_diy_equipment";
+    ListingCategory["CAMERAS_PHOTOGRAPHY_GEAR"] = "cameras_photography_gear";
+    ListingCategory["EVENT_PARTY_EQUIPMENT"] = "event_party_equipment";
+    ListingCategory["CAMPING_OUTDOOR_GEAR"] = "camping_outdoor_gear";
+    ListingCategory["TECH_ELECTRONICS"] = "tech_electronics";
+    ListingCategory["VEHICLES_TRANSPORT"] = "vehicles_transport";
+    ListingCategory["HOME_GARDEN_APPLIANCES"] = "home_garden_appliances";
+    ListingCategory["SPORTS_FITNESS_EQUIPMENT"] = "sports_fitness_equipment";
+    ListingCategory["MUSICAL_INSTRUMENTS_GEAR"] = "musical_instruments_gear";
+    ListingCategory["COSTUMES_PROPS"] = "costumes_props";
+    ListingCategory["MAKER_CRAFT_SUPPLIES"] = "maker_craft_supplies";
 })(ListingCategory || (exports.ListingCategory = ListingCategory = {}));
 var PricingType;
 (function (PricingType) {
@@ -77,7 +78,6 @@ exports.ListingSchema = zod_1.z.object({
     title: zod_1.z.string().min(1, 'Title is required').max(100),
     description: zod_1.z.string().min(10, 'Description must be at least 10 characters').max(2000),
     category: zod_1.z.nativeEnum(ListingCategory),
-    subcategory: zod_1.z.string().optional(),
     condition: zod_1.z.nativeEnum(ListingCondition),
     brand: zod_1.z.string().optional(),
     model: zod_1.z.string().optional(),

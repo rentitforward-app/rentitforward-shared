@@ -12,6 +12,7 @@ export * from './utils/pricing';
 export * from './utils/notifications';
 export * from './utils/notification-triggers';
 export * from './constants';
+export * from './graphql';
 
 // Location types and utilities (selective exports to avoid conflicts)
 export type {

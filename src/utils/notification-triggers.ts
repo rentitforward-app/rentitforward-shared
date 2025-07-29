@@ -1,6 +1,8 @@
 import { 
   NotificationType, 
   NotificationContext,
+} from '../types/notification';
+import {
   createNotification,
   createPushNotification,
   shouldSendNotification 
@@ -38,7 +40,7 @@ export class BookingNotificationTriggers {
     const notification = createNotification('booking_request', context, data.listing_owner_id);
     
     // Send via API (this would be called from your booking creation logic)
-    await sendNotificationViaAPI(data.listing_owner_id, 'booking_request', context, 'high');
+    await sendNotificationViaAPI(data.listing_owner_id, 'booking_request', context, 'immediate');
   }
 
   /**
@@ -133,7 +135,7 @@ export class PaymentNotificationTriggers {
       error_message: data.error_message,
     };
 
-    await sendNotificationViaAPI(data.renter_id, 'payment_failed', context, 'high');
+    await sendNotificationViaAPI(data.renter_id, 'payment_failed', context, 'immediate');
   }
 }
 
@@ -319,7 +321,7 @@ async function sendNotificationViaAPI(
       throw new Error(`Notification API error: ${response.status}`);
     }
 
-    const result = await response.json();
+    const result = await response.json() as { notification_id?: string };
     console.log('Notification sent successfully:', result.notification_id);
   } catch (error) {
     console.error('Error sending notification:', error);
@@ -367,7 +369,7 @@ async function sendNotificationToSegment(
       throw new Error(`OneSignal API error: ${response.status} - ${errorText}`);
     }
 
-    const result = await response.json();
+    const result = await response.json() as { id?: string };
     console.log('Segment notification sent successfully:', result.id);
   } catch (error) {
     console.error('Error sending segment notification:', error);
@@ -462,7 +464,7 @@ export class ScheduledNotifications {
         throw new Error(`OneSignal API error: ${response.status}`);
       }
 
-      const result = await response.json();
+      const result = await response.json() as { id?: string };
       console.log('Scheduled notification created:', result.id);
     } catch (error) {
       console.error('Error scheduling notification:', error);
@@ -516,7 +518,7 @@ export class ScheduledNotifications {
         throw new Error(`OneSignal API error: ${response.status}`);
       }
 
-      const result = await response.json();
+      const result = await response.json() as { id?: string };
       console.log('Scheduled review request created:', result.id);
     } catch (error) {
       console.error('Error scheduling review request:', error);

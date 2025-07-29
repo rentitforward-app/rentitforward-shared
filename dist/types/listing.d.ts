@@ -15,16 +15,17 @@ export declare enum ListingCondition {
     POOR = "poor"
 }
 export declare enum ListingCategory {
-    TOOLS_DIY = "tools_diy",
-    ELECTRONICS = "electronics",
-    CAMERAS = "cameras",
-    SPORTS_OUTDOORS = "sports_outdoors",
-    EVENT_PARTY = "event_party",
-    INSTRUMENTS = "instruments",
-    AUTOMOTIVE = "automotive",
-    HOME_GARDEN = "home_garden",
-    APPLIANCES = "appliances",
-    OTHER = "other"
+    TOOLS_DIY_EQUIPMENT = "tools_diy_equipment",
+    CAMERAS_PHOTOGRAPHY_GEAR = "cameras_photography_gear",
+    EVENT_PARTY_EQUIPMENT = "event_party_equipment",
+    CAMPING_OUTDOOR_GEAR = "camping_outdoor_gear",
+    TECH_ELECTRONICS = "tech_electronics",
+    VEHICLES_TRANSPORT = "vehicles_transport",
+    HOME_GARDEN_APPLIANCES = "home_garden_appliances",
+    SPORTS_FITNESS_EQUIPMENT = "sports_fitness_equipment",
+    MUSICAL_INSTRUMENTS_GEAR = "musical_instruments_gear",
+    COSTUMES_PROPS = "costumes_props",
+    MAKER_CRAFT_SUPPLIES = "maker_craft_supplies"
 }
 export declare enum PricingType {
     DAILY = "daily",
@@ -113,7 +114,6 @@ export declare const ListingSchema: z.ZodObject<{
     title: z.ZodString;
     description: z.ZodString;
     category: z.ZodNativeEnum<typeof ListingCategory>;
-    subcategory: z.ZodOptional<z.ZodString>;
     condition: z.ZodNativeEnum<typeof ListingCondition>;
     brand: z.ZodOptional<z.ZodString>;
     model: z.ZodOptional<z.ZodString>;
@@ -313,7 +313,6 @@ export declare const ListingSchema: z.ZodObject<{
     bookingCount: number;
     rating: number;
     reviewCount: number;
-    subcategory?: string | undefined;
     brand?: string | undefined;
     model?: string | undefined;
     year?: number | undefined;
@@ -378,7 +377,6 @@ export declare const ListingSchema: z.ZodObject<{
         deliveryAvailable?: boolean | undefined;
     };
     status?: ListingStatus | undefined;
-    subcategory?: string | undefined;
     brand?: string | undefined;
     model?: string | undefined;
     year?: number | undefined;
@@ -404,7 +402,6 @@ export declare const CreateListingSchema: z.ZodObject<Omit<{
     title: z.ZodString;
     description: z.ZodString;
     category: z.ZodNativeEnum<typeof ListingCategory>;
-    subcategory: z.ZodOptional<z.ZodString>;
     condition: z.ZodNativeEnum<typeof ListingCondition>;
     brand: z.ZodOptional<z.ZodString>;
     model: z.ZodOptional<z.ZodString>;
@@ -594,7 +591,6 @@ export declare const CreateListingSchema: z.ZodObject<Omit<{
         deliveryAvailable: boolean;
         deliveryRadius?: number | undefined;
     };
-    subcategory?: string | undefined;
     brand?: string | undefined;
     model?: string | undefined;
     year?: number | undefined;
@@ -652,7 +648,6 @@ export declare const CreateListingSchema: z.ZodObject<Omit<{
         pickupAvailable?: boolean | undefined;
         deliveryAvailable?: boolean | undefined;
     };
-    subcategory?: string | undefined;
     brand?: string | undefined;
     model?: string | undefined;
     year?: number | undefined;
@@ -700,7 +695,6 @@ export declare const UpdateListingSchema: z.ZodObject<{
     title: z.ZodOptional<z.ZodString>;
     description: z.ZodOptional<z.ZodString>;
     category: z.ZodOptional<z.ZodNativeEnum<typeof ListingCategory>>;
-    subcategory: z.ZodOptional<z.ZodOptional<z.ZodString>>;
     condition: z.ZodOptional<z.ZodNativeEnum<typeof ListingCondition>>;
     brand: z.ZodOptional<z.ZodOptional<z.ZodString>>;
     model: z.ZodOptional<z.ZodOptional<z.ZodString>>;
@@ -818,7 +812,6 @@ export declare const UpdateListingSchema: z.ZodObject<{
     title?: string | undefined;
     description?: string | undefined;
     category?: ListingCategory | undefined;
-    subcategory?: string | undefined;
     condition?: ListingCondition | undefined;
     brand?: string | undefined;
     model?: string | undefined;
@@ -876,7 +869,6 @@ export declare const UpdateListingSchema: z.ZodObject<{
     title?: string | undefined;
     description?: string | undefined;
     category?: ListingCategory | undefined;
-    subcategory?: string | undefined;
     condition?: ListingCondition | undefined;
     brand?: string | undefined;
     model?: string | undefined;

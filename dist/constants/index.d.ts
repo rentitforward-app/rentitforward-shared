@@ -23,65 +23,60 @@ export declare const FONTS: {
     readonly mono: "Monaco, monospace";
 };
 export declare const CATEGORIES: {
-    readonly TOOLS_DIY: {
-        readonly label: "Tools & DIY";
+    readonly TOOLS_DIY_EQUIPMENT: {
+        readonly label: "Tools & DIY Equipment";
         readonly icon: "🔧";
         readonly color: "#FF6B35";
-        readonly subcategories: readonly ["Power Tools", "Hand Tools", "Measuring Tools", "Safety Equipment", "Ladders & Scaffolding"];
     };
-    readonly ELECTRONICS: {
-        readonly label: "Electronics";
-        readonly icon: "📱";
-        readonly color: "#4ECDC4";
-        readonly subcategories: readonly ["Computers", "Audio", "Gaming", "Smart Home", "Tablets"];
-    };
-    readonly CAMERAS: {
-        readonly label: "Cameras";
+    readonly CAMERAS_PHOTOGRAPHY_GEAR: {
+        readonly label: "Cameras & Photography Gear";
         readonly icon: "📷";
         readonly color: "#45B7D1";
-        readonly subcategories: readonly ["DSLR", "Mirrorless", "Action Cameras", "Lenses", "Accessories"];
     };
-    readonly SPORTS_OUTDOORS: {
-        readonly label: "Sports & Outdoors";
-        readonly icon: "🏃";
-        readonly color: "#96CEB4";
-        readonly subcategories: readonly ["Camping", "Cycling", "Water Sports", "Winter Sports", "Fitness"];
-    };
-    readonly EVENT_PARTY: {
-        readonly label: "Event & Party";
+    readonly EVENT_PARTY_EQUIPMENT: {
+        readonly label: "Event & Party Equipment";
         readonly icon: "🎉";
         readonly color: "#FECA57";
-        readonly subcategories: readonly ["Sound Systems", "Lighting", "Decorations", "Furniture", "Catering Equipment"];
     };
-    readonly INSTRUMENTS: {
-        readonly label: "Instruments";
-        readonly icon: "🎸";
-        readonly color: "#FF9FF3";
-        readonly subcategories: readonly ["Guitars", "Keyboards", "Drums", "Wind Instruments", "Recording Equipment"];
+    readonly CAMPING_OUTDOOR_GEAR: {
+        readonly label: "Camping & Outdoor Gear";
+        readonly icon: "🏕️";
+        readonly color: "#96CEB4";
     };
-    readonly AUTOMOTIVE: {
-        readonly label: "Automotive";
+    readonly TECH_ELECTRONICS: {
+        readonly label: "Tech & Electronics";
+        readonly icon: "📱";
+        readonly color: "#4ECDC4";
+    };
+    readonly VEHICLES_TRANSPORT: {
+        readonly label: "Vehicles & Transport";
         readonly icon: "🚗";
         readonly color: "#54A0FF";
-        readonly subcategories: readonly ["Car Care", "Tools", "Accessories", "Bike Racks", "Trailers"];
     };
-    readonly HOME_GARDEN: {
-        readonly label: "Home & Garden";
+    readonly HOME_GARDEN_APPLIANCES: {
+        readonly label: "Home & Garden Appliances";
         readonly icon: "🏡";
         readonly color: "#5F27CD";
-        readonly subcategories: readonly ["Gardening Tools", "Lawn Care", "Cleaning Equipment", "Furniture", "Appliances"];
     };
-    readonly APPLIANCES: {
-        readonly label: "Appliances";
-        readonly icon: "🏠";
-        readonly color: "#00D2D3";
-        readonly subcategories: readonly ["Kitchen", "Laundry", "Heating & Cooling", "Small Appliances", "Cleaning"];
+    readonly SPORTS_FITNESS_EQUIPMENT: {
+        readonly label: "Sports & Fitness Equipment";
+        readonly icon: "🏃";
+        readonly color: "#FF9F43";
     };
-    readonly OTHER: {
-        readonly label: "Other";
-        readonly icon: "📦";
-        readonly color: "#A0A0A0";
-        readonly subcategories: readonly ["Books", "Games", "Baby Items", "Pet Supplies", "Miscellaneous"];
+    readonly MUSICAL_INSTRUMENTS_GEAR: {
+        readonly label: "Musical Instruments & Gear";
+        readonly icon: "🎸";
+        readonly color: "#FF9FF3";
+    };
+    readonly COSTUMES_PROPS: {
+        readonly label: "Costumes & Props";
+        readonly icon: "🎭";
+        readonly color: "#A4B0BE";
+    };
+    readonly MAKER_CRAFT_SUPPLIES: {
+        readonly label: "Maker & Craft Supplies";
+        readonly icon: "✂️";
+        readonly color: "#2ED573";
     };
 };
 export declare const AUSTRALIAN_STATES: readonly [{
