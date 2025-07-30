@@ -26,7 +26,9 @@
     "typescript": "^5.3.0"
   },
   "dependencies": {
+    "@graphql-tools/schema": "^10.0.25",
+    "graphql": "^16.11.0",
     "stripe": "^14.18.0",
     "zod": "^3.22.4"
   }
-} 
+}
