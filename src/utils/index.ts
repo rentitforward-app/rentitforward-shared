@@ -28,3 +28,6 @@ export * from './notification-triggers';
 // Search and predictive text utilities
 export * from './search';
 export * from './search-api';
+
+// Calendar and availability utilities
+export * from './calendar';

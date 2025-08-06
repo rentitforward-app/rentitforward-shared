@@ -2,16 +2,18 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookingFilterSchema = exports.UpdateBookingSchema = exports.CreateBookingSchema = exports.BookingSchema = exports.DeliveryMethod = exports.BookingCancellationReason = exports.BookingStatus = void 0;
 const zod_1 = require("zod");
-// Booking Types
+// Booking Types (Updated January 2025 for owner approval workflow)
 var BookingStatus;
 (function (BookingStatus) {
     BookingStatus["PENDING"] = "pending";
+    BookingStatus["PENDING_PAYMENT"] = "pending_payment";
     BookingStatus["CONFIRMED"] = "confirmed";
     BookingStatus["ACTIVE"] = "active";
     BookingStatus["COMPLETED"] = "completed";
     BookingStatus["CANCELLED"] = "cancelled";
+    BookingStatus["REJECTED"] = "rejected";
     BookingStatus["DISPUTED"] = "disputed";
-    BookingStatus["REFUNDED"] = "refunded";
+    BookingStatus["REFUNDED"] = "refunded"; // Payment refunded
 })(BookingStatus || (exports.BookingStatus = BookingStatus = {}));
 var BookingCancellationReason;
 (function (BookingCancellationReason) {

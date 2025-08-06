@@ -123,9 +123,12 @@ export declare const BUSINESS_RULES: {
     readonly MAX_SEARCH_LIMIT: 100;
     readonly MIN_RATING: 1;
     readonly MAX_RATING: 5;
-    readonly SERVICE_FEE_PERCENTAGE: 0.05;
+    readonly SERVICE_FEE_PERCENTAGE: 0.15;
+    readonly PLATFORM_COMMISSION_PERCENTAGE: 0.2;
+    readonly INSURANCE_PERCENTAGE: 0.1;
     readonly PAYMENT_PROCESSING_FEE: 0.029;
     readonly GST_RATE: 0.1;
+    readonly POINTS_TO_DOLLAR_RATE: 0.1;
 };
 export declare const ERROR_MESSAGES: {
     readonly REQUIRED_FIELD: "This field is required";

@@ -1,11 +1,13 @@
 import { z } from 'zod';
 export declare enum BookingStatus {
-    PENDING = "pending",
-    CONFIRMED = "confirmed",
-    ACTIVE = "active",
-    COMPLETED = "completed",
-    CANCELLED = "cancelled",
-    DISPUTED = "disputed",
+    PENDING = "pending",// Initial request, awaiting owner approval
+    PENDING_PAYMENT = "pending_payment",// Owner approved, payment being processed
+    CONFIRMED = "confirmed",// Payment confirmed, booking active
+    ACTIVE = "active",// Rental period started (pickup confirmed)
+    COMPLETED = "completed",// Rental completed and returned
+    CANCELLED = "cancelled",// Cancelled by user or owner
+    REJECTED = "rejected",// Rejected by owner
+    DISPUTED = "disputed",// Dispute raised
     REFUNDED = "refunded"
 }
 export declare enum BookingCancellationReason {
