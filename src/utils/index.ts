@@ -9,8 +9,14 @@ export * from './formatting';
 // Pricing utilities
 export * from './pricing';
 
-// Stripe utilities
-export * from './stripe';
+// Platform utilities
+export * from './platform';
+
+// Stripe utilities (platform-aware)
+export * from './stripe-platform';
+
+// Legacy Stripe utilities (server-only, temporarily disabled for mobile compatibility)
+// export * from './stripe';
 
 // Reviews utilities
 export * from './reviews';

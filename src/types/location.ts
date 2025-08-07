@@ -15,7 +15,7 @@ export interface Location extends Coordinates {
   country: string;
 }
 
-export interface UserLocation extends Coordinates {
+export interface GeolocationPosition extends Coordinates {
   accuracy?: number;
   altitude?: number;
   heading?: number;
@@ -25,7 +25,7 @@ export interface UserLocation extends Coordinates {
 
 export interface GeolocationResult {
   success: boolean;
-  location?: UserLocation;
+  location?: GeolocationPosition;
   error?: string;
 }
 

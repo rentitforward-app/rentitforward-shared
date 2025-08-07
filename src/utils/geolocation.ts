@@ -4,7 +4,7 @@
 
 import type {
   Coordinates,
-  UserLocation,
+  GeolocationPosition,
   GeolocationResult,
   DistanceCalculationOptions,
   LocationBounds,

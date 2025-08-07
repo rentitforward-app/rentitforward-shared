@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isValidPostcode = exports.isValidPhone = exports.isValidEmail = exports.getImageUrl = exports.formatFileSize = exports.getRatingStars = exports.formatRating = exports.calculateDistance = exports.formatDistance = exports.formatDaysBetween = exports.formatRelativeTime = exports.formatDate = exports.formatPriceRange = exports.formatPrice = exports.titleCase = exports.capitalizeFirst = exports.truncateText = exports.slugify = void 0;
+exports.isValidPostcode = exports.isValidPhone = exports.isValidEmail = exports.getImageUrl = exports.formatFileSize = exports.getRatingStars = exports.formatRating = exports.formatDaysBetween = exports.formatRelativeTime = exports.formatDate = exports.formatPriceRange = exports.formatPrice = exports.titleCase = exports.capitalizeFirst = exports.truncateText = exports.slugify = void 0;
 // Text Formatting Utilities
 const slugify = (text) => {
     return text
@@ -85,24 +85,8 @@ const formatDaysBetween = (startDate, endDate) => {
 };
 exports.formatDaysBetween = formatDaysBetween;
 // Distance and Location Utilities
-const formatDistance = (distanceKm) => {
-    if (distanceKm < 1) {
-        return `${Math.round(distanceKm * 1000)}m`;
-    }
-    return `${distanceKm.toFixed(1)}km`;
-};
-exports.formatDistance = formatDistance;
-const calculateDistance = (lat1, lon1, lat2, lon2) => {
-    const R = 6371; // Radius of the Earth in km
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180;
-    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-            Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
-};
-exports.calculateDistance = calculateDistance;
+// formatDistance moved to geolocation.ts to avoid duplicate exports
+// calculateDistance moved to geolocation.ts to avoid duplicate exports
 // Rating and Review Utilities
 const formatRating = (rating, precision = 1) => {
     return rating.toFixed(precision);

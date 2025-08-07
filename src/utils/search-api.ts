@@ -18,7 +18,7 @@ import type {
 import {
   generateSearchSuggestions,
   createSearchDebouncer,
-  SearchSuggestionCache,
+  SearchSuggestionCacheManager,
   createSearchSuggestionRequest,
   DEFAULT_PREDICTIVE_CONFIG
 } from './search';
@@ -37,7 +37,7 @@ export const SEARCH_API_ENDPOINTS = {
  */
 export class SearchSuggestionAPI {
   private baseUrl: string;
-  private cache: SearchSuggestionCache;
+  private cache: SearchSuggestionCacheManager;
   private config: PredictiveTextConfig;
   private debouncedFetch: (request: SearchSuggestionRequest) => Promise<SearchSuggestionResult>;
 
@@ -47,7 +47,7 @@ export class SearchSuggestionAPI {
   ) {
     this.baseUrl = baseUrl;
     this.config = { ...DEFAULT_PREDICTIVE_CONFIG, ...config };
-    this.cache = new SearchSuggestionCache(this.config.cache_ttl);
+    this.cache = new SearchSuggestionCacheManager(this.config.cache_ttl);
     
     // Create debounced fetch function
     this.debouncedFetch = createSearchDebouncer(
@@ -130,7 +130,7 @@ export class SearchSuggestionAPI {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
-      const data = await response.json();
+      const data = await response.json() as { popular_searches?: PopularSearch[] };
       return data.popular_searches || [];
     } catch (error) {
       console.error('Error fetching popular searches:', error);
@@ -152,7 +152,7 @@ export class SearchSuggestionAPI {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
-      const data = await response.json();
+      const data = await response.json() as { recent_searches?: RecentSearch[] };
       return data.recent_searches || [];
     } catch (error) {
       console.error('Error fetching recent searches:', error);
@@ -215,7 +215,7 @@ export class SearchSuggestionAPI {
     
     // Update cache TTL if changed
     if (newConfig.cache_ttl) {
-      this.cache = new SearchSuggestionCache(newConfig.cache_ttl);
+      this.cache = new SearchSuggestionCacheManager(newConfig.cache_ttl);
     }
   }
 
@@ -235,13 +235,13 @@ export class SearchSuggestionAPI {
       });
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
+        const errorData = await response.json().catch(() => ({})) as { message?: string };
         throw new Error(
           errorData.message || `HTTP ${response.status}: ${response.statusText}`
         );
       }
 
-      const data: SearchSuggestionsResponse = await response.json();
+      const data = await response.json() as SearchSuggestionsResponse;
       return { success: true, data };
     } catch (error) {
       const searchError: SearchSuggestionError = {
@@ -499,21 +499,21 @@ export class LocalSearchHistory {
    */
   private getFromStorage(): string | null {
     // This would be implemented differently for web vs mobile
-    if (typeof window !== 'undefined' && window.localStorage) {
-      return window.localStorage.getItem(this.storageKey);
+    if (typeof globalThis !== 'undefined' && 'localStorage' in globalThis) {
+      return (globalThis as any).localStorage?.getItem(this.storageKey) || null;
     }
     return null;
   }
 
   private saveToStorage(data: string): void {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      window.localStorage.setItem(this.storageKey, data);
+    if (typeof globalThis !== 'undefined' && 'localStorage' in globalThis) {
+      (globalThis as any).localStorage?.setItem(this.storageKey, data);
     }
   }
 
   private removeFromStorage(): void {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      window.localStorage.removeItem(this.storageKey);
+    if (typeof globalThis !== 'undefined' && 'localStorage' in globalThis) {
+      (globalThis as any).localStorage?.removeItem(this.storageKey);
     }
   }
 

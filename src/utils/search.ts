@@ -5,7 +5,6 @@
 
 import type {
   SearchSuggestion,
-  SearchSuggestionType,
   SearchSuggestionsResponse,
   SearchSuggestionRequest,
   PredictiveTextConfig,
@@ -14,6 +13,7 @@ import type {
   PopularSearch,
   RecentSearch
 } from '../types/search';
+import { SearchSuggestionType } from '../types/search';
 
 // Default configuration for predictive text
 export const DEFAULT_PREDICTIVE_CONFIG: PredictiveTextConfig = {
@@ -430,7 +430,7 @@ export function createSearchDebouncer<T extends (...args: any[]) => any>(
 /**
  * Simple cache implementation for search suggestions
  */
-export class SearchSuggestionCache {
+export class SearchSuggestionCacheManager {
   private cache = new Map<string, { data: SearchSuggestion[]; expires: number }>();
   private ttl: number;
 

@@ -8,7 +8,7 @@ export * from './types/search';
 export * from './design-system';
 export * from './utils/formatting';
 export * from './utils/reviews';
-export * from './utils/stripe';
+// export * from './utils/stripe'; // Temporarily disabled for mobile compatibility
 export * from './utils/pricing';
 export * from './utils/notifications';
 export * from './utils/notification-triggers';

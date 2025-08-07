@@ -7,8 +7,6 @@ export declare const formatPriceRange: (minPrice: number, maxPrice: number, curr
 export declare const formatDate: (date: string | Date, format?: "short" | "medium" | "long" | "full", locale?: string) => string;
 export declare const formatRelativeTime: (date: string | Date, locale?: string) => string;
 export declare const formatDaysBetween: (startDate: string | Date, endDate: string | Date) => number;
-export declare const formatDistance: (distanceKm: number) => string;
-export declare const calculateDistance: (lat1: number, lon1: number, lat2: number, lon2: number) => number;
 export declare const formatRating: (rating: number, precision?: number) => string;
 export declare const getRatingStars: (rating: number) => string;
 export declare const formatFileSize: (bytes: number) => string;

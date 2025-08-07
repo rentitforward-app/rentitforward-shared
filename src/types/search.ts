@@ -230,7 +230,7 @@ export type TypedSearchSuggestion =
   | SearchSuggestion;
 
 // Search suggestion cache entry
-export interface SearchSuggestionCache {
+export interface SearchSuggestionCacheConfig {
   /** Cache key (usually the query) */
   key: string;
   /** Cached suggestions */
