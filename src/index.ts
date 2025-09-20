@@ -8,10 +8,9 @@ export * from './types/search';
 export * from './design-system';
 export * from './utils/formatting';
 export * from './utils/reviews';
-// export * from './utils/stripe'; // Temporarily disabled for mobile compatibility
+// export * from './utils/stripe'; // Disabled due to TypeScript errors
 export * from './utils/pricing';
 export * from './utils/notifications';
-export * from './utils/notification-triggers';
 export * from './utils/search';
 export * from './utils/search-api';
 export * from './constants';

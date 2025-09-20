@@ -117,7 +117,6 @@ export function createPushNotification(
         color: '#44D62C',
         channel_id: channelId,
         click_action: options?.click_action || getWebUrl(notification.action_url),
-        image: options?.image || template?.big_picture,
         notification_priority: priority === 'high' ? 'PRIORITY_HIGH' : 'PRIORITY_DEFAULT',
         default_sound: true,
         default_vibrate_timings: true,
@@ -128,7 +127,9 @@ export function createPushNotification(
     apns: {
       headers: {
         'apns-priority': priority === 'high' ? '10' : '5',
-        'apns-expiration': options?.ttl ? String(Math.floor(Date.now() / 1000) + options.ttl) : undefined,
+        ...(options?.ttl && {
+          'apns-expiration': String(Math.floor(Date.now() / 1000) + options.ttl)
+        }),
       },
       payload: {
         aps: {
