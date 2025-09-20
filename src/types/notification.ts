@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-// OneSignal notification types
+// FCM notification types
 export const NotificationTypeSchema = z.enum([
   'booking_request',
   'booking_confirmed', 
@@ -19,45 +19,120 @@ export const NotificationTypeSchema = z.enum([
 
 export type NotificationType = z.infer<typeof NotificationTypeSchema>;
 
-// OneSignal push notification payload
+// FCM push notification payload
 export const PushNotificationSchema = z.object({
-  // OneSignal required fields
-  app_id: z.string(),
-  headings: z.record(z.string(), z.string()),
-  contents: z.record(z.string(), z.string()),
+  // FCM required fields
+  to: z.string().optional(), // FCM token
+  registration_ids: z.array(z.string()).optional(), // Multiple FCM tokens
+  condition: z.string().optional(), // Topic condition
   
-  // Targeting
-  include_external_user_ids: z.array(z.string()).optional(),
-  include_player_ids: z.array(z.string()).optional(),
-  included_segments: z.array(z.string()).optional(),
+  // Notification payload
+  notification: z.object({
+    title: z.string(),
+    body: z.string(),
+    image: z.string().url().optional(),
+    icon: z.string().optional(),
+    color: z.string().optional(),
+    sound: z.string().optional(),
+    tag: z.string().optional(),
+    click_action: z.string().optional(),
+    body_loc_key: z.string().optional(),
+    body_loc_args: z.array(z.string()).optional(),
+    title_loc_key: z.string().optional(),
+    title_loc_args: z.array(z.string()).optional(),
+  }).optional(),
   
-  // Custom data
-  data: z.record(z.string(), z.any()).optional(),
+  // Data payload
+  data: z.record(z.string(), z.string()).optional(),
   
-  // Notification behavior
-  priority: z.number().optional(),
-  ttl: z.number().optional(),
+  // Android specific
+  android: z.object({
+    collapse_key: z.string().optional(),
+    priority: z.enum(['normal', 'high']).optional(),
+    ttl: z.string().optional(),
+    restricted_package_name: z.string().optional(),
+    data: z.record(z.string(), z.string()).optional(),
+    notification: z.object({
+      title: z.string().optional(),
+      body: z.string().optional(),
+      icon: z.string().optional(),
+      color: z.string().optional(),
+      sound: z.string().optional(),
+      tag: z.string().optional(),
+      click_action: z.string().optional(),
+      body_loc_key: z.string().optional(),
+      body_loc_args: z.array(z.string()).optional(),
+      title_loc_key: z.string().optional(),
+      title_loc_args: z.array(z.string()).optional(),
+      channel_id: z.string().optional(),
+      ticker: z.string().optional(),
+      sticky: z.boolean().optional(),
+      event_time: z.string().optional(),
+      local_only: z.boolean().optional(),
+      notification_priority: z.enum(['PRIORITY_MIN', 'PRIORITY_LOW', 'PRIORITY_DEFAULT', 'PRIORITY_HIGH', 'PRIORITY_MAX']).optional(),
+      default_sound: z.boolean().optional(),
+      default_vibrate_timings: z.boolean().optional(),
+      default_light_settings: z.boolean().optional(),
+      vibrate_timings: z.array(z.string()).optional(),
+      visibility: z.enum(['PRIVATE', 'PUBLIC', 'SECRET']).optional(),
+      notification_count: z.number().optional(),
+    }).optional(),
+  }).optional(),
   
-  // Rich content
-  big_picture: z.string().url().optional(),
-  large_icon: z.string().url().optional(),
-  small_icon: z.string().optional(),
+  // iOS specific (APNS)
+  apns: z.object({
+    headers: z.record(z.string(), z.string()).optional(),
+    payload: z.object({
+      aps: z.object({
+        alert: z.union([
+          z.string(),
+          z.object({
+            title: z.string().optional(),
+            subtitle: z.string().optional(),
+            body: z.string().optional(),
+            'launch-image': z.string().optional(),
+            'title-loc-key': z.string().optional(),
+            'title-loc-args': z.array(z.string()).optional(),
+            'subtitle-loc-key': z.string().optional(),
+            'subtitle-loc-args': z.array(z.string()).optional(),
+            'loc-key': z.string().optional(),
+            'loc-args': z.array(z.string()).optional(),
+          }),
+        ]).optional(),
+        badge: z.number().optional(),
+        sound: z.union([z.string(), z.object({
+          critical: z.boolean().optional(),
+          name: z.string().optional(),
+          volume: z.number().optional(),
+        })]).optional(),
+        'thread-id': z.string().optional(),
+        category: z.string().optional(),
+        'content-available': z.number().optional(),
+        'mutable-content': z.number().optional(),
+      }),
+    }).optional(),
+  }).optional(),
   
-  // Web specific
-  web_url: z.string().url().optional(),
-  web_buttons: z.array(z.object({
-    id: z.string(),
-    text: z.string(),
-    url: z.string().url().optional(),
-  })).optional(),
-  
-  // Mobile specific
-  ios_attachments: z.record(z.string(), z.string()).optional(),
-  android_channel_id: z.string().optional(),
-  
-  // Scheduling
-  send_after: z.string().optional(),
-  delayed_option: z.enum(['timezone', 'last-active']).optional(),
+  // Web specific (WebPush)
+  webpush: z.object({
+    headers: z.record(z.string(), z.string()).optional(),
+    data: z.record(z.string(), z.any()).optional(),
+    notification: z.object({
+      title: z.string().optional(),
+      body: z.string().optional(),
+      icon: z.string().optional(),
+      image: z.string().optional(),
+      badge: z.string().optional(),
+      tag: z.string().optional(),
+      color: z.string().optional(),
+      click_action: z.string().optional(),
+      actions: z.array(z.object({
+        action: z.string(),
+        title: z.string(),
+        icon: z.string().optional(),
+      })).optional(),
+    }).optional(),
+  }).optional(),
 });
 
 export type PushNotification = z.infer<typeof PushNotificationSchema>;
@@ -75,8 +150,8 @@ export const AppNotificationSchema = z.object({
   updated_at: z.date(),
   action_url: z.string().optional(),
   
-  // OneSignal tracking
-  onesignal_id: z.string().optional(),
+  // FCM tracking
+  fcm_message_id: z.string().optional(),
   sent_at: z.date().optional(),
   delivered_at: z.date().optional(),
   opened_at: z.date().optional(),
@@ -111,13 +186,14 @@ export const NotificationPreferencesSchema = z.object({
 
 export type NotificationPreferences = z.infer<typeof NotificationPreferencesSchema>;
 
-// OneSignal subscription data
-export const OneSignalSubscriptionSchema = z.object({
+// FCM subscription data
+export const FCMSubscriptionSchema = z.object({
   user_id: z.string().uuid(),
-  player_id: z.string(), // OneSignal player/subscription ID
-  external_user_id: z.string(), // Our user ID
+  fcm_token: z.string(), // FCM registration token
   platform: z.enum(['web', 'ios', 'android']),
   device_type: z.enum(['web_push', 'ios', 'android']),
+  device_id: z.string().optional(),
+  app_version: z.string().optional(),
   is_active: z.boolean().default(true),
   subscription_data: z.record(z.string(), z.any()).optional(),
   created_at: z.date(),
@@ -125,7 +201,7 @@ export const OneSignalSubscriptionSchema = z.object({
   last_active: z.date().optional(),
 });
 
-export type OneSignalSubscription = z.infer<typeof OneSignalSubscriptionSchema>;
+export type FCMSubscription = z.infer<typeof FCMSubscriptionSchema>;
 
 // Notification template for different types
 export interface NotificationTemplate {
