@@ -36,3 +36,6 @@ export * from './search-api';
 
 // Calendar and availability utilities
 export * from './calendar';
+
+// Booking utilities
+export * from './booking';

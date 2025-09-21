@@ -13,6 +13,7 @@ export * from './utils/pricing';
 export * from './utils/notifications';
 export * from './utils/search';
 export * from './utils/search-api';
+export * from './utils/booking';
 export * from './constants';
 export * from './graphql';
 
